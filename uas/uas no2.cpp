@@ -1,62 +1,48 @@
-#include <iostream>
 #include <algorithm>
- 
-using namespace std;
- 
-struct Anak {
-    string nama;
-    int tanggal, bulan, tahun;
-};
- 
-const int MAX_DATA = 20;
- 
-void tampilkanData(const Anak data[], int n) {
-    cout << "Data belum terurut:\n";
-    for (int i = 0; i < n; ++i) {
-        cout << data[i].nama << " - " << data[i].tanggal << "/" << data[i].bulan << "/" << data[i].tahun << "\n";
-    }
-}
- 
-int main() {
-    Anak data[MAX_DATA];
- 
-    // Pembacaan data secara acak (contoh data)
-    for (int i = 0; i < MAX_DATA - 1; ++i) {
-        cout << "Masukkan data anak ke-" << i + 1 << ":\n";
-        cout << "Nama: ";
-        cin >> data[i].nama;
-        cout << "Tanggal lahir (DD MM YYYY): ";
-        cin >> data[i].tanggal >> data[i].bulan >> data[i].tahun;
-        if (i == 19) break; // Hanya membaca 19 data sebelum 2020
-    }
- 
-    // Menambahkan satu data anak dengan Tahun Lahir 2020
-    cout << "Masukkan data anak ke-" << MAX_DATA << " (Tahun Lahir 2020):\n";
-    cout << "Nama: ";
-    cin >> data[MAX_DATA - 1].nama;
-    cout << "Tanggal lahir (DD MM YYYY): ";
-    cin >> data[MAX_DATA - 1].tanggal >> data[MAX_DATA - 1].bulan >> data[MAX_DATA - 1].tahun;
- 
-    // Urutkan data berdasarkan Tahun Lahir dari yang tertua sampai termuda
-    sort(data, data + MAX_DATA, [](const Anak &a, const Anak &b) {
-        return a.tahun < b.tahun;
-    });
- 
-    // Tampilkan data yang belum terurut
-    tampilkanData(data, MAX_DATA);
- 
-    // Tampilkan data yang sudah terurut
-    cout << "\nData sudah terurut:\n";
-    tampilkanData(data, MAX_DATA);
- 
-    // Cari dan tampilkan data anak yang Tahun Lahirnya 2020
-    cout << "\nData anak dengan Tahun Lahir 2020:\n";
-    for (int i = 0; i < MAX_DATA; ++i) {
-        if (data[i].tahun == 2020) {
-            cout << data[i].nama << " - " << data[i].tanggal << "/" << data[i].bulan << "/" << data[i].tahun << "\n";
-        }
-    }
- 
-    return 0;
-}
+#include <iostream>
 
+using namespace std;
+
+struct Child {
+  string name;
+  int day, month, year;
+};
+
+bool compareByYear(const Child &a, const Child &b) { return a.year < b.year; }
+
+int main() {
+  const int maxData = 5;
+  Child children[maxData];
+
+  for (int i = 0; i < maxData; ++i) {
+    cout << "Masukkan nama anak: ";
+    cin >> children[i].name;
+
+    cout << "Masukan tanggal lahir (hari bulan tahun): ";
+    cin >> children[i].day >> children[i].month >> children[i].year;
+  }
+
+  cout << "\nData sebelum diurutkan:\n";
+  for (int i = 0; i < maxData; ++i) {
+    cout << children[i].name << " - " << children[i].day << "/"
+         << children[i].month << "/" << children[i].year << endl;
+  }
+
+  sort(children, children + maxData, compareByYear);
+
+  cout << "\nData setelah diurutkan berdasarkan tahun lahir:\n";
+  for (int i = 0; i < maxData; ++i) {
+    cout << children[i].name << " - " << children[i].day << "/"
+         << children[i].month << "/" << children[i].year << endl;
+  }
+
+  cout << "\nData anak yang tahun lahirnya 2020:\n";
+  for (int i = 0; i < maxData; ++i) {
+    if (children[i].year == 2020) {
+      cout << children[i].name << " - " << children[i].day << "/"
+           << children[i].month << "/" << children[i].year << endl;
+    }
+  }
+
+  return 0;
+}
